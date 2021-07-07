@@ -1,0 +1,210 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
+
+    <sys:Double x:Key="RackTileSize">120</sys:Double>
+    <CornerRadius x:Key="RackTileRadius">3</CornerRadius>
+    
+    <sys:Double x:Key="BottomButtonSize">48</sys:Double>
+    <CornerRadius x:Key="BottomButtonRadius">24</CornerRadius>
+    <sys:Double x:Key="WorkOrderButtonSize">50</sys:Double>
+    <CornerRadius x:Key="WorkOrderButtonRadius">25</CornerRadius>
+    <sys:Double x:Key="WorkOrderSetButtonSize">46</sys:Double>
+    <CornerRadius x:Key="WorkOrderSetButtonRadius">23</CornerRadius>
+    <sys:Double x:Key="MediumButtonSize">34</sys:Double>
+    <CornerRadius x:Key="MediumButtonRadius">17</CornerRadius>
+    <sys:Double x:Key="LittleButtonSize">16</sys:Double>
+    <CornerRadius x:Key="LittleButtonRadius">8</CornerRadius>
+
+    <Style x:Key="Button" TargetType="Button">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MainMenuButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="300" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+    <Style x:Key="RackButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource RackTileSize}" />
+        <Setter Property="Width" Value="{StaticResource RackTileSize}" />
+        <Setter Property="Margin" Value="5,0,5,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{StaticResource RackTileRadius}" Background="Transparent">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BottomButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource BottomButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource BottomButtonSize}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{StaticResource BottomButtonRadius}" Background="Transparent">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WorkOrderSelectionButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource MediumButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource MediumButtonSize}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="17" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WorkOrderButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource WorkOrderButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource WorkOrderButtonSize}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="8" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{StaticResource WorkOrderButtonRadius}" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WorkOrderSetButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource WorkOrderSetButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource WorkOrderSetButtonSize}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,7,0,7" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{StaticResource WorkOrderSetButtonRadius}" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="WorkOrderSetButtonWithText" TargetType="Button" BasedOn="{StaticResource WorkOrderSetButton}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="8,8,8,0" />
+    </Style>
+    <Style x:Key="WorkOrderSetButtonText" TargetType="TextBlock">
+        <Setter Property="Margin" Value="8,0,8,8" />
+    </Style>
+    
+    <Style x:Key="LogoButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+    <Style x:Key="WorkOrderSetButtonsTendency" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="34" />
+        <Setter Property="Width" Value="34" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="17" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WorkOrderSetViewSets" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="33" />
+        <Setter Property="Margin" Value="3" />
+    </Style>
+
+    <Style x:Key="WorkOrderSetCommandMeasure" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Margin" Value="3" />
+    </Style>
+
+    <Style x:Key="WorkOrderSetCommandBand" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Margin" Value="6,6,0,6" />
+    </Style>
+
+    <Style x:Key="WorkOrderSetPanelBottom" TargetType="DockPanel">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+   
+
+    <Style x:Key="LabelButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource TopMenuButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource TopMenuButtonSize}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="8,0,8,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="22" Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LittleLightButton" TargetType="Button" BasedOn="{StaticResource Button}">
+        <Setter Property="Height" Value="{StaticResource LittleButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource LittleButtonSize}" />
+        <Setter Property="Margin" Value="5,0,15,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{StaticResource LittleButtonRadius}" Background="Transparent">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LittleLightImage" TargetType="Image">
+        <Setter Property="Height" Value="{StaticResource LittleButtonSize}" />
+        <Setter Property="Width" Value="{StaticResource LittleButtonSize}" />
+        <Setter Property="Margin" Value="5,0,15,0" />
+    </Style>
+
+
+    <Style x:Key="StackPanelBack" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+</ResourceDictionary>

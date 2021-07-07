@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qwirkle.UI.Wpf", "Qwirkle.UI.Wpf\Qwirkle.UI.Wpf.csproj", "{34159103-3C19-4C92-AB62-F87C2BFCCB5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qwirkle.UI.Core", "Qwirkle.UI.Core\Qwirkle.UI.Core.csproj", "{DFFFA629-F505-48CD-A940-8F32A9EB0DEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34159103-3C19-4C92-AB62-F87C2BFCCB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34159103-3C19-4C92-AB62-F87C2BFCCB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34159103-3C19-4C92-AB62-F87C2BFCCB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34159103-3C19-4C92-AB62-F87C2BFCCB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFFFA629-F505-48CD-A940-8F32A9EB0DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFFA629-F505-48CD-A940-8F32A9EB0DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFFA629-F505-48CD-A940-8F32A9EB0DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFFA629-F505-48CD-A940-8F32A9EB0DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F58D37E1-3CD4-463D-8D9C-022FE987547A}
+	EndGlobalSection
+EndGlobal
