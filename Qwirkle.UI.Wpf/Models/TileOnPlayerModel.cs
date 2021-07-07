@@ -2,15 +2,15 @@
 using System;
 using System.Windows.Media.Imaging;
 
-namespace Qwirkle.UI.Wpf.ViewModels
+namespace Qwirkle.UI.Wpf.Models
 {
-    public class TileOnPlayerViewModel : NotifyPropertyChangedBase
+    public class TileOnPlayerModel
     {
         public TileOnPlayer Tile { get; }
         public string FullNameImage { get; }
         public BitmapImage Image { get; }
 
-        public TileOnPlayerViewModel(TileOnPlayer tile, string fullNameImage)
+        public TileOnPlayerModel(TileOnPlayer tile, string fullNameImage)
         {
             Tile = tile;
             FullNameImage = fullNameImage;

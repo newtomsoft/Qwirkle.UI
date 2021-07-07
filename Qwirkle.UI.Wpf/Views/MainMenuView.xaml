@@ -8,6 +8,6 @@
       mc:Ignorable="d" >
 
     <Grid>
-        <Button Width="80" Height="30" Grid.Row="0" Content="New Game" IsEnabled="{Binding }" Command="{Binding NewGameCommand}"></Button>
+        <Button Width="80" Height="30" Grid.Row="0" Content="New Game" Command="{Binding NewGameCommand}"></Button>
     </Grid>
 </UserControl>

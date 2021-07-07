@@ -30,7 +30,7 @@ namespace Qwirkle.UI.Wpf.ViewModels
 
         private void NewGame(object _ = null)
         {
-            var playerIds = new List<int> { 10, 11 };
+            var playerIds = new List<int> { 10 }; //todo
             var response = CreateGameAsync(playerIds).Result;
             var resultCreateGame = response.Content.ReadAsStringAsync().Result;
             if (!response.IsSuccessStatusCode) return;

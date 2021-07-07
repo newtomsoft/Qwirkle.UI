@@ -9,7 +9,6 @@ namespace Qwirkle.UI.Wpf
         private readonly Predicate<object> _canExecute;
 
         public RelayCommand(Action<object> command) : this(command, (_) => true) { }
-
         public RelayCommand(Action<object> command, Predicate<object> canExecute)
         {
             _command = command;

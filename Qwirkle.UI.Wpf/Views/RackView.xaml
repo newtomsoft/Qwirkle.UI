@@ -8,23 +8,23 @@
              d:DataContext="{d:DesignInstance Type=viewModels:RackViewModel, IsDesignTimeCreatable=False}">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource RackButton}">
-                <Image Source="{Binding TilesViewModel[0].Image}"/>
+            <Button Style="{StaticResource RackButton}" Command="{Binding SelectTileCommand}" CommandParameter="{Binding TilesOnPlayerModel[0]}">
+                <Image Source="{Binding TilesOnPlayerModel[0].Image}"/>
             </Button>
-            <Button Style="{StaticResource RackButton}">
-                <Image Source="{Binding TilesViewModel[1].Image}"/>
+            <Button Style="{StaticResource RackButton}" Command="{Binding SelectTileCommand}" CommandParameter="{Binding TilesOnPlayerModel[1]}">
+                <Image Source="{Binding TilesOnPlayerModel[1].Image}"/>
             </Button>
-            <Button Style="{StaticResource RackButton}">
-                <Image Source="{Binding TilesViewModel[2].Image}"/>
+            <Button Style="{StaticResource RackButton}" Command="{Binding SelectTileCommand}" CommandParameter="{Binding TilesOnPlayerModel[2]}">
+                <Image Source="{Binding TilesOnPlayerModel[2].Image}"/>
             </Button>
-            <Button Style="{StaticResource RackButton}">
-                <Image Source="{Binding TilesViewModel[3].Image}"/>
+            <Button Style="{StaticResource RackButton}" Command="{Binding SelectTileCommand}" CommandParameter="{Binding TilesOnPlayerModel[3]}">
+                <Image Source="{Binding TilesOnPlayerModel[3].Image}"/>
             </Button>
-            <Button Style="{StaticResource RackButton}">
-                <Image Source="{Binding TilesViewModel[4].Image}"/>
+            <Button Style="{StaticResource RackButton}" Command="{Binding SelectTileCommand}" CommandParameter="{Binding TilesOnPlayerModel[4]}">
+                <Image Source="{Binding TilesOnPlayerModel[4].Image}"/>
             </Button>
-            <Button Style="{StaticResource RackButton}">
-                <Image Source="{Binding TilesViewModel[5].Image}"/>
+            <Button Style="{StaticResource RackButton}" Command="{Binding SelectTileCommand}" CommandParameter="{Binding TilesOnPlayerModel[5]}">
+                <Image Source="{Binding TilesOnPlayerModel[5].Image}"/>
             </Button>
         </StackPanel>
     </Grid>

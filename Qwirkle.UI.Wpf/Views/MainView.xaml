@@ -10,6 +10,17 @@
       Title="Qwirkle">
 
     <Grid>
-        <ContentPresenter Content="{Binding CurrentViewModel}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <ContentPresenter Content="{Binding CurrentViewModel}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Button Width="80" Content="Home" Command="{Binding MainMenuCommand}"></Button>
+        </Grid>
     </Grid>
 </Window>

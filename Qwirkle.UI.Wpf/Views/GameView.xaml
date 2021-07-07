@@ -15,8 +15,14 @@
             <ColumnDefinition Width="200"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Width="80" Height="30" Content="Start" IsEnabled="{Binding IsNewGameEnable}" Command="{Binding StartGameCommand}"></Button>
-        <ContentPresenter Grid.Column="1" Grid.Row="0" Content="{Binding BoardViewModel}"/>
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Button Width="80" Height="30" Content="Start" IsEnabled="{Binding IsStartGameEnable}" Command="{Binding StartGameCommand}"/>
+            <Button Width="80" Height="30" Content="Play" IsEnabled="True" Command="{Binding PlayCommand}"/>
+            <Button Width="80" Height="30" Content="Swap tiles" IsEnabled="True" Command="{Binding SwapTilesCommand}"/>
+
+        </StackPanel>
+
+        <ContentPresenter Grid.Column="1" Grid.Row="0" Width="500" Height="500" Content="{Binding BoardViewModel}"/>
         <ContentPresenter Grid.Column="1" Grid.Row="1" Content="{Binding RackViewModel}"/>
     </Grid>
 </UserControl>

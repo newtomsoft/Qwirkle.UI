@@ -11,8 +11,5 @@ namespace Qwirkle.Core.Entities
         {
             Coordinates = coordinates;
         }
-
-        public TileOnBoard(TileColor color, TileForm form, CoordinatesInGame coordinates) : this(0, color, form, coordinates)
-        { }
     }
 }

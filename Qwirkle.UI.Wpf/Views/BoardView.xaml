@@ -4,31 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-            xmlns:viewModels="clr-namespace:Qwirkle.UI.Wpf.ViewModels"
+             xmlns:viewModels="clr-namespace:Qwirkle.UI.Wpf.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewModels:BoardViewModel, IsDesignTimeCreatable=False}">
 
-    <Grid>
-        <DataGrid Name="Tiles"
-              Margin="10"
-              AutoGenerateColumns="False"
-              IsReadOnly="True"
-              ItemsSource="{Binding TilesViewModel}"
-              SelectedItem="{Binding SelectedTileViewModel}">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Width="120">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding Image}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-            <DataGrid.LayoutTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="-90"/>
-                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                </TransformGroup>
-            </DataGrid.LayoutTransform>
-        </DataGrid>
-    </Grid>
+    <UniformGrid x:Name="Board" Columns="{Binding ColumnsNumber}" Rows="{Binding RowsNumber}" Background="AntiqueWhite" />
+
 </UserControl>
