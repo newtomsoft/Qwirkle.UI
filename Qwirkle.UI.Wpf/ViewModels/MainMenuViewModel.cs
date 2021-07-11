@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtomsoft.Configuration;
+using Newtomsoft.EntityFramework.Configuration;
 using Newtonsoft.Json;
 using Qwirkle.Core.Entities;
 using System;

@@ -1,12 +1,7 @@
-﻿using Qwirkle.Core.Entities;
-using Qwirkle.UI.Wpf.Models;
+﻿using Qwirkle.UI.Wpf.Models;
 using Qwirkle.UI.Wpf.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Qwirkle.UI.Wpf.Views
 {
@@ -35,7 +30,6 @@ namespace Qwirkle.UI.Wpf.Views
             ((Button)Board.Children[index]).Content = image;
         }
 
-
         private void CreateBoard()
         {
             var board = (BoardViewModel)DataContext;
@@ -49,6 +43,5 @@ namespace Qwirkle.UI.Wpf.Views
                 Board.Children.Add(element);
             }
         }
-
     }
 }

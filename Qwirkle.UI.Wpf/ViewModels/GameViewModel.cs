@@ -22,13 +22,18 @@ namespace Qwirkle.UI.Wpf.ViewModels
         private BoardViewModel _boardViewModel;
 
         private Game _game;
-        public List<TileOnPlayer> TilesOnPlayerSelected { get => _tilesOnPlayerSelected; private set { _tilesOnPlayerSelected = value; NotifyPropertyChanged(); } }
-        private List<TileOnPlayer> _tilesOnPlayerSelected;
 
+        public int MovePoints { get => _movePoints; private set { _movePoints = value; NotifyPropertyChanged(); } }
+        private int _movePoints;
 
-        private List<int> _boardIndexSelected;
-        private List<CoordinatesInGame> _boardCoordinatesSelected;
+        public int PlayerPoints { get => _playerPoints; private set { _playerPoints = value; NotifyPropertyChanged(); } }
+        private int _playerPoints;
 
+        public int TilesPlayedNumber { get => _tilesPlayedNumber; private set { _tilesPlayedNumber = value; NotifyPropertyChanged(); } }
+        private int _tilesPlayedNumber;
+
+        public int TilesInBagNumber { get => _tilesInBagNumber; private set { _tilesInBagNumber = value; NotifyPropertyChanged(); } }
+        private int _tilesInBagNumber;
 
         public bool IsStartGameEnable { get => _isNewGameEnable; set { _isNewGameEnable = value; NotifyPropertyChanged(); } }
         private bool _isNewGameEnable;
@@ -38,14 +43,17 @@ namespace Qwirkle.UI.Wpf.ViewModels
         private readonly HttpClient _httpClient;
 
         public ICommand StartGameCommand => new RelayCommand(StartGame);
-        public ICommand PlayCommand => new RelayCommand(Play);
+        public ICommand PlayMoveCommand => new RelayCommand(PlayMove);
         public ICommand SwapTilesCommand => new RelayCommand(SwapTiles);
+
+        private List<TileOnPlayer> _tilesOnPlayerSelected;
+        private Dictionary<CoordinatesInGame, TileOnPlayer> _tilesOnPlayerToPlaySelected;
 
         public GameViewModel(IConfigurationRoot configuration, List<Player> players, HttpClient httpClient)
         {
-            TilesOnPlayerSelected = new();
-            _boardIndexSelected = new();
-            _boardCoordinatesSelected = new();
+            _tilesOnPlayerSelected = new();
+            _tilesOnPlayerToPlaySelected = new Dictionary<CoordinatesInGame, TileOnPlayer>();
+            TilesInBagNumber = 108;
             _configuration = configuration;
             _gameId = GetGameId(players);
             _httpClient = httpClient;
@@ -61,14 +69,9 @@ namespace Qwirkle.UI.Wpf.ViewModels
             RackViewModel = new(new Rack(_currentPlayer.Rack.Tiles), SelectTileOnPlayer, _configuration);
         }
 
-        private void SelectTileOnPlayer(TileOnPlayer tileSelected) => TilesOnPlayerSelected.Add(tileSelected);
+        private void SelectTileOnPlayer(TileOnPlayer tileSelected) => _tilesOnPlayerSelected.Add(tileSelected);
 
-        private void SelectCellOnBoard(int index)
-        {
-            _boardIndexSelected.Add(index);
-            CoordinatesInGame coordinate = IndexToCoordinates(index);
-            _boardCoordinatesSelected.Add(coordinate);
-        }
+        private void SelectCellOnBoard(int index) => _tilesOnPlayerToPlaySelected.Add(IndexToCoordinates(index), _tilesOnPlayerSelected[^1]);
 
         private CoordinatesInGame IndexToCoordinates(int index)
         {
@@ -85,60 +88,62 @@ namespace Qwirkle.UI.Wpf.ViewModels
             return JsonConvert.DeserializeObject<Game>(resultGetGame);
         }
 
-        private void Play(object _ = null)
+        private void PlayMove(object _ = null)
         {
-            var tilesOnPlayer = TilesOnPlayerSelected;
-            List<int> tilesIds = GetIds(tilesOnPlayer);
-            var response = PlayGameAsync(tilesIds, _boardCoordinatesSelected).Result;
+            List<int> tilesSelectedIds = GetIds(_tilesOnPlayerToPlaySelected.Values);
+            var response = PlayGameAsync().Result;
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show(response.ReasonPhrase);
-                ResetSelectedElements();
+                ResetSelectedTiles();
                 return;
             }
-
             var resultGetGame = response.Content.ReadAsStringAsync().Result;
             var playReturn = JsonConvert.DeserializeObject<PlayReturn>(resultGetGame);
             if (playReturn.Code != PlayReturnCode.Ok)
             {
                 MessageBox.Show(playReturn.Code.ToString());
-                ResetSelectedElements();
+                ResetSelectedTiles();
                 return;
             }
             var tiles = new List<TileOnBoard>();
-            for (var i = 0; i < tilesOnPlayer.Count; i++)
+            foreach (var tileToPlay in _tilesOnPlayerToPlaySelected)
             {
-                var tileOnPlayer = tilesOnPlayer[i];
-                var coordinate = _boardCoordinatesSelected[i];
+                var tileOnPlayer = tileToPlay.Value;
+                var coordinate = tileToPlay.Key;
                 var tileToPutOnBoard = new TileOnBoard(tileOnPlayer.Id, tileOnPlayer.Color, tileOnPlayer.Form, coordinate);
                 tiles.Add(tileToPutOnBoard);
             }
+
             _currentPlayer.Rack = playReturn.NewRack;
+            MovePoints = playReturn.Points;
+            PlayerPoints += MovePoints;
+            TilesPlayedNumber += _tilesOnPlayerToPlaySelected.Count;
+            TilesInBagNumber -= _tilesOnPlayerToPlaySelected.Count;
+
             RackViewModel = new RackViewModel(playReturn.NewRack, SelectTileOnPlayer, _configuration);
             BoardViewModel.AddTiles(tiles);
-            ResetSelectedElements();
+            ResetSelectedTiles();
         }
 
-        private static List<int> GetIds(List<TileOnPlayer> tilesOnPlayer) => tilesOnPlayer.Select(t => t.Id).ToList();
+        private static List<int> GetIds(ICollection<TileOnPlayer> tilesOnPlayer) => tilesOnPlayer.Select(t => t.Id).ToList();
 
-        private void ResetSelectedElements()
+        private void ResetSelectedTiles()
         {
-            TilesOnPlayerSelected = new();
-            _boardIndexSelected = new();
-            _boardCoordinatesSelected = new();
+            _tilesOnPlayerSelected = new();
+            _tilesOnPlayerToPlaySelected = new();
         }
 
-        public bool CanExecuteSwapTiles() => TilesOnPlayerSelected.Count != 0;
+        public bool CanExecuteSwapTiles() => _tilesOnPlayerToPlaySelected.Count != 0;
 
         private void SwapTiles(object _ = null)
         {
-            var tilesOnPlayer = TilesOnPlayerSelected;
-            List<int> tilesIds = GetIds(tilesOnPlayer);
+            List<int> tilesIds = GetIds(_tilesOnPlayerSelected);
             var response = SwapTilesAsync(tilesIds).Result;
             if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show(response.ReasonPhrase);
-                ResetSelectedElements();
+                ResetSelectedTiles();
                 return;
             }
 
@@ -147,12 +152,12 @@ namespace Qwirkle.UI.Wpf.ViewModels
             if (swapReturn.Code != PlayReturnCode.Ok)
             {
                 MessageBox.Show(swapReturn.Code.ToString());
-                ResetSelectedElements();
+                ResetSelectedTiles();
                 return;
             }
             _currentPlayer.Rack = swapReturn.NewRack;
             RackViewModel = new RackViewModel(swapReturn.NewRack, SelectTileOnPlayer, _configuration);
-            ResetSelectedElements();
+            ResetSelectedTiles();
         }
 
         public void Tips(object o)
@@ -166,14 +171,12 @@ namespace Qwirkle.UI.Wpf.ViewModels
 
         private async Task<HttpResponseMessage> GetGameAsync() => await _httpClient.PostAsJsonAsync("Games/Get", new List<int> { _gameId }).ConfigureAwait(false);
 
-        private async Task<HttpResponseMessage> PlayGameAsync(List<int> tileIds, List<CoordinatesInGame> coordinates)
+        private async Task<HttpResponseMessage> PlayGameAsync()
         {
             var tiles = new List<TileToPlayModel>();
-            for (var i = 0; i < tileIds.Count; i++)
-            {
-                var tile = new TileToPlayModel() { PlayerId = _currentPlayer.Id, TileId = tileIds[i], X = coordinates[i].X, Y = coordinates[i].Y };
-                tiles.Add(tile);
-            }
+            foreach (var tileToPlay in _tilesOnPlayerToPlaySelected)
+                tiles.Add(new TileToPlayModel() { PlayerId = _currentPlayer.Id, TileId = tileToPlay.Value.Id, X = tileToPlay.Key.X, Y = tileToPlay.Key.Y });
+
             return await _httpClient.PostAsJsonAsync("Games/PlayTiles", tiles).ConfigureAwait(false);
         }
 

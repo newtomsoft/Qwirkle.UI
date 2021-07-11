@@ -8,21 +8,27 @@
              d:DataContext="{d:DesignInstance Type=viewModels:GameViewModel, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="130"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Button Width="80" Height="30" Content="Start" IsEnabled="{Binding IsStartGameEnable}" Command="{Binding StartGameCommand}"/>
-            <Button Width="80" Height="30" Content="Play" IsEnabled="True" Command="{Binding PlayCommand}"/>
+            <Button Width="80" Height="30" Content="Play" IsEnabled="True" Command="{Binding PlayMoveCommand}"/>
             <Button Width="80" Height="30" Content="Swap tiles" IsEnabled="True" Command="{Binding SwapTilesCommand}"/>
+            <Separator/>
+            <TextBlock Width="100" Height="30" Text="{Binding MovePoints, StringFormat='move points : \{0}'}" />
+            <TextBlock Width="100" Height="30" Text="{Binding PlayerPoints, StringFormat='player points : \{0}'}" />
+            <Separator/>
+            <TextBlock Width="100" Height="30" Text="{Binding TilesPlayedNumber, StringFormat='tiles played : \{0}'}" />
+            <TextBlock Width="100" Height="30" Text="{Binding TilesInBagNumber, StringFormat='tiles in bag : \{0}'}" />
 
         </StackPanel>
 
-        <ContentPresenter Grid.Column="1" Grid.Row="0" Width="500" Height="500" Content="{Binding BoardViewModel}"/>
+        <ContentPresenter Grid.Column="1" Grid.Row="0" Content="{Binding BoardViewModel}" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"/>
         <ContentPresenter Grid.Column="1" Grid.Row="1" Content="{Binding RackViewModel}"/>
     </Grid>
 </UserControl>

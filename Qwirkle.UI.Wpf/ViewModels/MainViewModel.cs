@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtomsoft.Configuration;
-using Qwirkle.UI.Wpf;
+using Newtomsoft.EntityFramework.Configuration;
 using System;
 using System.Windows.Input;
 
@@ -16,7 +15,7 @@ namespace Qwirkle.UI.Wpf.ViewModels
         private NotifyPropertyChangedBase _currentViewModel;
 
         public ICommand MainMenuCommand => new RelayCommand(GoToMainMenu);
-        
+
         public MainViewModel()
         {
             _configuration = NewtomsoftConfiguration.GetConfiguration();

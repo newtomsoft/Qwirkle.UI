@@ -16,6 +16,7 @@ namespace Qwirkle.UI.Wpf.ViewModels
         private int _columnsNumber;
         public int RowsNumber { get => _rowNumber; private set { _rowNumber = value; NotifyPropertyChanged(); } }
         private int _rowNumber;
+
         private readonly IConfiguration _configuration;
 
         public delegate void RefreshBoardEventHandler(object sender, TileOnBoardModel tile);
@@ -26,11 +27,12 @@ namespace Qwirkle.UI.Wpf.ViewModels
 
         public ICommand TryMoveTileCommand => new RelayCommand(TryMoveTile);
 
-
         public BoardViewModel(Action<int> selectCellOnBoard, IConfiguration configuration)
         {
-            ColumnsNumber = 6;
-            RowsNumber = 6;
+            const int minColumnsNumber = 20;
+            const int minRowsNumber = 20;
+            ColumnsNumber = minColumnsNumber;
+            RowsNumber = minRowsNumber;
             _selectCellOnBoard = selectCellOnBoard;
             _configuration = configuration;
             TilesOnBoardModel = new();
@@ -49,8 +51,14 @@ namespace Qwirkle.UI.Wpf.ViewModels
             foreach (var tile in tiles)
             {
                 TileOnBoardModel tileModel = TileOnBoardToTileOnBoardModel(tile);
-                RaiseTileAdded(tileModel);
                 TilesOnBoardModel.Add(tileModel);
+                //var xMin = TilesOnBoardModel.Select(t => t.Tile.Coordinates.X).Min();
+                //var xMax = TilesOnBoardModel.Select(t => t.Tile.Coordinates.X).Max();
+                //var yMin = TilesOnBoardModel.Select(t => t.Tile.Coordinates.Y).Min();
+                //var yMax = TilesOnBoardModel.Select(t => t.Tile.Coordinates.Y).Max();
+                //ColumnsNumber = xMax - xMin + 1 + 2 * 5;
+                //RowsNumber = yMax - yMin + 1 + 2 * 5;
+                RaiseTileAdded(tileModel);
             }
         }
 
