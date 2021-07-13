@@ -40,13 +40,14 @@ namespace Qwirkle.UI.Wpf.ViewModels
             _changeViewModel(_gameViewModel);
         }
 
-        private static HttpClient GetHttpClient()
+        private HttpClient GetHttpClient()
         {
-            var client = new HttpClient { BaseAddress = new Uri("https://localhost:5001/") }; //Todo uri
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.Timeout = TimeSpan.FromSeconds(10);
-            return client;
+            string uriWebApi = _configuration.GetValue<string>("UriWebApi");
+            var httpClient = new HttpClient { BaseAddress = new Uri(uriWebApi) };
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.Timeout = TimeSpan.FromSeconds(10);
+            return httpClient;
         }
 
         private async Task<HttpResponseMessage> CreateGameAsync(List<int> playerIds) => await _httpClient.PostAsJsonAsync("Games", playerIds).ConfigureAwait(false);
