@@ -45,7 +45,7 @@ namespace Qwirkle.UI.Wpf.ViewModels
             var client = new HttpClient { BaseAddress = new Uri("https://localhost:5001/") }; //Todo uri
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.Timeout = TimeSpan.FromSeconds(Convert.ToDouble(10));
+            client.Timeout = TimeSpan.FromSeconds(10);
             return client;
         }
 
